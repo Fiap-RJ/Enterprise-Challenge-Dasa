@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import logoGenera from './assets/logo-genera.png'
+
 export default function App() {
   const [mensagens, setMensagens] = useState([]);
   const [inputUsuario, setInputUsuario] = useState('');
@@ -60,23 +61,25 @@ export default function App() {
     }
   };
 
-  return (
+return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white text-genera-roxo p-4 font-sans">
       
-      <div className="w-full max-w-4xl bg-white border border-gray-200 rounded-xl shadow-2xl overflow-hidden flex flex-col h-[85vh]">
+      <div className="w-full max-w-4xl bg-white border border-gray-400 rounded-xl shadow-2xl overflow-hidden flex flex-col h-[85vh]">
         
-        <div className="bg-white p-6 text-center border-b border-gray-200 flex flex-col items-center">
+        {/* Cabeçalho com Efeito de Sombra (Divisor) */}
+        <div className="bg-white p-6 text-center border-b border-gray-300 flex flex-col items-center shadow-md relative z-10">
           <img 
             src={logoGenera} 
             alt="Genera Logo" 
-            className="h-30 mb-6"
+            className="h-27 mb-3 object-contain"
           />
           <p className="text-sm font-medium text-genera-roxo/70 uppercase tracking-widest">
             Assistente Especializado
           </p>
         </div>
         
-        <div className="flex-1 p-6 overflow-y-auto bg-gray-50/50">
+        {/* Área de Mensagens com Sombra Interna */}
+        <div className="flex-1 p-6 overflow-y-auto bg-gray-1000 shadow-inner">
           {mensagens.length === 0 ? (
             <div className="text-center text-genera-roxo/50 mt-20 font-light text-lg">
               Faça o upload do seu laudo em PDF ou digite a sua dúvida clínica abaixo.
@@ -109,10 +112,11 @@ export default function App() {
           )}
         </div>
 
-        <div className="p-5 bg-white border-t border-gray-200 flex flex-col gap-4">
+        {/* Área de Input */}
+        <div className="p-5 bg-white border-t border-gray-200 flex flex-col gap-4 relative z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
           
           <div className="flex justify-start">
-            <label className="cursor-pointer border-2 border-genera-magenta text-genera-magenta hover:bg-genera-magenta hover:text-white font-medium py-2 px-6 rounded-full transition-all duration-300 flex items-center gap-2">
+            <label className="cursor-pointer border-2 border-genera-magenta text-genera-magenta hover:bg-genera-magenta hover:text-white font-medium py-2 px-6 rounded-full transition-all duration-300 flex items-center gap-2 shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M18.375 12.739l-7.693 7.693a4.536 4.536 0 01-6.42-6.421l10.899-10.899m-7.828 7.828l-5.656 5.656a2.268 2.268 0 003.207 3.207l5.657-5.657m5.656-5.656l-3.182 3.182" />
               </svg>
@@ -124,7 +128,7 @@ export default function App() {
           <div className="flex gap-3 items-center w-full">
             <input
               type="text"
-              className="flex-1 border-2 border-gray-200 rounded-full p-4 focus:outline-none focus:border-genera-magenta text-genera-roxo placeholder-gray-400 bg-gray-50 transition-colors"
+              className="flex-1 border-2 border-gray-200 rounded-full p-4 focus:outline-none focus:border-genera-magenta text-genera-roxo placeholder-gray-400 bg-gray-50 transition-colors shadow-inner"
               placeholder="Digite sua dúvida clínica..."
               value={inputUsuario}
               onChange={(e) => setInputUsuario(e.target.value)}
@@ -149,3 +153,4 @@ export default function App() {
     </div>
   );
 }
+
