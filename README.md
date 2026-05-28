@@ -1,12 +1,12 @@
 # FIAP - Faculdade de Informática e Administração Paulista
 
 <p align="center">
-<a href= "[https://www.fiap.com.br/](https://www.fiap.com.br/)"><img src="assets/logo-fiap.png" alt="FIAP - Faculdade de Informática e Administração Paulista" border="0" width=40% height=40%></a>
+<a href= "https://www.fiap.com.br/"><img src="assets/logo-fiap.png" alt="FIAP - Faculdade de Informática e Administração Paulista" border="0" width=40% height=40%></a>
 </p>
 
 <br>
 
-# Genera Intelligence: RAG Multimodelo para Laudos Genéticos
+# Genera Intelligence: RAG Multimodelo para Laudos Genéticos (Sprint 2)
 
 ## Grupo: Squad AI Engineering
 
@@ -21,113 +21,87 @@
 ### Coordenador(a)
 - <a href="https://www.linkedin.com/in/andregodoichiovato/">André Godói</a>
 
+---
+
+## ⚠️ Nota Técnica Arquitetural (Sprint 2)
+Para a avaliação desta etapa focada em Inteligência Artificial, a equipe adotou uma estratégia de mitigação de risco no pipeline de ingestão. Em vez de executar o OCR (Textract) em tempo real nos arquivos PDF de origem, **os laudos foram previamente convertidos e padronizados no arquivo `proposta_estrutura_de_dados.json`**. 
+
+Esta decisão permite que a equipe concentre todos os esforços no que realmente importa nesta Sprint: a **implementação do motor RAG, a orquestração de múltiplos agentes via LangGraph e a engenharia de prompts**, garantindo respostas semânticas altamente precisas e ancoradas em dados estruturados.
+
+---
+
 ## 📜 Descrição
 O projeto visa resolver o gargalo de interpretação de dados genéticos do produto Genera (Grupo Dasa). Atualmente, os laudos são entregues em arquivos PDF extensos e repletos de terminologias técnicas, o que dificulta a compreensão do paciente e a tomada de decisão ágil pelo médico. 
 
-Nossa solução propõe uma camada de inteligência baseada em **RAG (Retrieval-Augmented Generation)** que transforma esses documentos não estruturados em uma base de conhecimento consultável. Através de um Dashboard interativo aliado a um assistente conversacional (chatbot), o usuário pode "conversar" com seu DNA, recebendo explicações em linguagem simples, recomendações personalizadas e visualizações intuitivas de riscos e predisposições.
+A nossa solução é uma camada de inteligência baseada em **RAG (Retrieval-Augmented Generation)**. Através de um Dashboard interativo aliado a um assistente conversacional inteligente, o usuário pode "conversar" com o seu DNA, recebendo explicações em linguagem simples, recomendações personalizadas e visualizações intuitivas de riscos e predisposições.
 
 ## 📺 Apresentação do Projeto
-Assista ao vídeo de entrega da Sprint 1: [Link para o YouTube](https://youtu.be/mASJnbO3dqo)
+* **Sprint 2 (Atual - Motor RAG & Agentes):** [Link do YouTube será inserido aqui]
+* **Sprint 1 (Fundação e Arquitetura):** [Link para o YouTube](https://youtu.be/mASJnbO3dqo)
 
-### O Problema
-O volume de dados gerado por um mapeamento genético é massivo. Informações sobre ancestralidade, farmacogenética (Farma), nutrição (Nutri), performance física (Fit) e riscos de doenças graves (Aging/Doenças Genéticas) ficam isoladas em silos de texto técnico. Isso gera:
-1. **Baixo engajamento:** O paciente recebe o laudo, mas não sabe como aplicar as informações em sua rotina.
-2. **Dificuldade Médica:** Profissionais de saúde precisam gastar tempo de consulta filtrando marcadores específicos (SNPs) em PDFs de dezenas de páginas.
-3. **Falta de Interatividade:** O dado é estático; o usuário não consegue tirar dúvidas pontuais sem uma nova consulta.
-
-### A Solução
-Desenvolvemos uma pipeline completa de processamento que utiliza IA para:
-- **Extrair e Estruturar:** Converter PDFs técnicos em JSONs organizados por categorias de saúde.
-- **Anonimizar:** Garantir que nenhum dado sensível (PII) saia do ambiente seguro da AWS para ferramentas de terceiros.
-- **Interpretar:** Utilizar múltiplos agentes especialistas (LangGraph) para responder dúvidas sobre diferentes painéis genéticos (Ex: um agente focado em Nutrição e outro em Risco Clínico).
+### A Solução Integrada
+Utilizamos IA e arquitetura em nuvem para:
+- **Extrair e Estruturar:** Converter PDFs técnicos em JSONs organizados por categorias de saúde (simulado nesta Sprint).
+- **Interpretar (Foco Atual):** Utilizar múltiplos agentes especialistas orquestrados pelo **LangGraph** para responder a dúvidas específicas (ex: Agente de Nutrição, Agente de Risco Clínico).
+- **Garantir Governança:** Aplicar *guardrails* e *system prompts* que impedem alucinações da IA e emitem disclaimers médicos apropriados.
 
 ## 👥 Perfis de Usuários (Personas)
 
-Para garantir que a solução entregue valor real, o sistema foi desenhado pensando em duas frentes de interação principais, cada uma com necessidades bem diferentes em relação aos dados genéticos:
-
 1. **🧬 O Paciente (Usuário Final)**
-   * **A Dor:** Recebe um laudo denso e se sente perdido. Quer otimizar sua rotina, mas não entende o que significa um "alelo rs324640-G".
-   * **O Caso de Uso:** Uma pessoa focada em melhorar o desempenho físico e a dieta (hipertrofia, emagrecimento ou longevidade). Ela acessa o chat da plataforma para perguntar: *"Com base no meu painel Genera Fit e Nutri, como está a minha predisposição para absorção de proteínas e recuperação muscular?"*. O sistema traduz a genética em respostas práticas e acionáveis para o dia a dia.
-   * **O Valor:** Autonomia, engajamento com a própria saúde e desmistificação da genética.
+   * **A Dor:** Recebe um laudo denso e sente-se perdido perante os termos técnicos.
+   * **O Caso de Uso:** Acessa o chat e pergunta: *"Com base no meu painel Genera Nutri, como o meu corpo reage à cafeína?"*. O RAG traduz o alelo rs762551 numa recomendação prática para o dia a dia.
+   * **O Valor:** Autonomia e engajamento com a própria saúde.
 
-2. **🩺 O Profissional de Saúde (Médico, Nutricionista ou Geneticista)**
-   * **A Dor:** Tempo de consulta limitado. Analisar um PDF de 60 páginas para cruzar variáveis genéticas (SNPs) com o quadro clínico do paciente é um processo lento e sujeito a erros.
-   * **O Caso de Uso:** O profissional acessa a visão de "Especialista" no Dashboard. O RAG já filtrou os marcadores de alto risco (ex: predisposição no painel Farma para reações adversas a medicamentos ou baixo nível de Vitamina D).
-   * **O Valor:** Agilidade na tomada de decisão clínica, visualização estruturada dos riscos (PRS - *Polygenic Risk Score*) e assertividade na prescrição de tratamentos ou dietas.
+2. **🩺 O Profissional de Saúde (Médico/Nutricionista)**
+   * **A Dor:** Tempo de consulta limitado para cruzar dezenas de variantes genéticas.
+   * **O Caso de Uso:** Pesquisa direta na base de conhecimento sobre interações medicamentosas (Farma) sem ter de abrir PDFs de 60 páginas.
+   * **O Valor:** Agilidade e assertividade na tomada de decisão clínica.
 
 ---
 
 ## 🏗 Arquitetura da Solução
 
-A solução é construída sobre a infraestrutura **AWS**, utilizando modelos de linguagem via **Amazon Bedrock** e orquestração de agentes com **LangGraph**.
+A solução baseia-se na infraestrutura **AWS**, utilizando modelos de linguagem via **Amazon Bedrock**, orquestração com **LangGraph** e bases vetoriais para a busca semântica.
 
 ### Diagrama de Arquitetura
 
 <img src="assets/hld.png" alt="High Level Design">
 
-## 📊 Estrutura de Dados (Exemplo JSON)
-Abaixo, um exemplo de como os dados extraídos dos PDFs (como o Genera Skin e Fit) são estruturados para consulta da IA:
+## 🚀 Entregáveis e Foco da Sprint 2
 
-```json
-{
-  "paciente_id": "uuid-123",
-  "paineis": [
-    {
-      "categoria": "Genera Fit",
-      "marcadores": [{
-          "caracteristica": "Densidade óssea",
-          "gene": "WNT16",
-          "predisposicao": "Menor densidade óssea",
-          "recomendacao": "Monitorar ingestão de cálcio e vitamina D."
-      }]
-    }
-  ]
-}
-```
+Nesta fase, a implementação centrou-se em materializar o Motor de IA:
 
-
-## 🚀 Próximos Passos (Evolução para as Próximas Sprints)
-
-Nesta Sprint 1, consolidamos a visão de negócio, a modelagem dos dados e a arquitetura em nuvem. Para as próximas fases do Challenge, o desenvolvimento será dividido nas seguintes frentes táticas:
-
-* **Fase 1: Infraestrutura e Ingestão (Backend)**
-  * Provisionar os serviços base na AWS (Buckets S3 para os PDFs e tabelas do DynamoDB para o *Data Vault* de anonimização).
-  * Criar o script inicial em Python para ler os laudos de exemplo (Fit, Skin, Aging, Nutri) e forçar a extração para o formato JSON definido.
-
-* **Fase 2: Orquestração da IA (O Cérebro da Operação)**
-  * Configurar o ambiente do LangGraph.
-  * Criar o backend e o vector store para alimentar os agentes especialistas.
-  * Desenvolver os *system prompts* para cada agente, garantindo que eles consigam interpretar os dados genéticos e responder de forma contextualizada.
-  * Desenvolver e implementar o agente supervisor para roteamento inteligente das perguntas dos usuários.
-
-* **Fase 3: Prototipação da Interface (Frontend)**
-  * Criar o wireframe de alta fidelidade do Dashboard.
-  * Conectar a interface web com a API do LangGraph para simular as primeiras conversas reais com a IA usando os dados de teste.
-  * Implementar os guardrails de segurança para garantir que o bot sempre inclua um *disclaimer* médico em suas respostas.
+* **1. Orquestração LangGraph:** Implementação de um nó roteador (Supervisor) que encaminha as requisições para o agente especialista mais indicado.
+* **2. Implementação RAG:** Geração de *embeddings* a partir das descrições detalhadas do JSON para alimentar o banco vetorial, garantindo *grounding*.
+* **3. Governança e Guardrails:** Engenharia de prompts rigorosa para evitar a prescrição médica indevida e assegurar a qualidade (NLP) da resposta.
+* **4. Interface de Chat:** Front-end funcional permitindo a interação natural e exibindo as *fontes genéticas* utilizadas na resposta.
 
 ***
 
-## 📁 Estrutura de pastas
+## 📁 Estrutura de Pastas
 
-- <b>.github</b>: Workflows de automação e CI/CD.
-- <b>assets</b>: Diagramas de arquitetura, imagens dos laudos e logo da FIAP.
-- <b>config</b>: Configurações de ambiente (env vars) e definições dos agentes LangGraph.
-- <b>document</b>: Documentação técnica detalhada e o arquivo de kick-off do Challenge Dasa.
-- <b>scripts</b>: Scripts Python para anonimização de PDFs e carga inicial no banco vetorial.
-- <b>src</b>: Código-fonte do backend (FastAPI), processamento Lambda e frontend (React).
-- <b>README.md</b>: Este guia do projeto.
+- **.github**: Workflows de automação e CI/CD.
+- **assets**: Diagramas de arquitetura e logos.
+- **config**: Configurações de ambiente e definições.
+- **document**: Laudos originais em PDF e relatórios de Governança.
+- **proposta_estrutura_de_dados.json**: Mock de dados estruturados utilizados para alimentar o banco vetorial.
+- **scripts**: Scripts de povoamento do Vector Store e limpeza de texto.
+- **src**: Código-fonte:
+  - `/backend`: Core do motor RAG e LangGraph.
+  - `/frontend`: Interface do assistente de chat.
 
-## 🔧 Como executar o código
+## 🔧 Como executar o projeto
 
-Nesta **Sprint 1**, o foco é a proposta técnica e arquitetural. Não há necessidade de execução de código funcional.
 1. Clone o repositório.
-2. Acesse a pasta `/document` para ler a especificação técnica.
-3. Visualize o diagrama de arquitetura na seção acima.
+2. Crie e ative um ambiente virtual Python (`python -m venv .venv`).
+3. Instale as dependências contidas no backend (ex: `pip install -r src/backend/requirements.txt`).
+4. Execute o script de *seed* da base vetorial localizado em `/scripts`.
+5. Inicie a API e a interface de usuário (ver README específicos dentro de `/src`).
 
-## 🗃 Histórico de lançamentos
+## 🗃 Histórico de Lançamentos
 
-* 0.1.0 - 24/04/2026
-    * Estruturação inicial do projeto, definição da arquitetura AWS e pipeline de anonimização.
+* **0.2.0 - 19/05/2026** - Sprint 2: Implementação do motor RAG, Agentes LangGraph, interface de Chat e políticas de Governança. Ingestão de dados estruturados via arquivo JSON.
+* **0.1.0 - 24/04/2026** - Sprint 1: Estruturação arquitetural do projeto, definição em AWS e pipeline conceitual de anonimização.
 
 ## 📋 Licença
 

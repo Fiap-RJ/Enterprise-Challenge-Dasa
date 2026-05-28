@@ -1,8 +1,8 @@
 {
   "paciente_id": "uuid-v4-gerado-pelo-sistema",
   "laboratorio": "Genera",
-  "versao_relatorio": "1.0",
-  "data_processamento": "2026-04-24T21:54:00Z",
+  "versao_relatorio": "2.0",
+  "data_processamento": "2026-05-19T10:00:00Z",
   "paineis_geneticos": [
     {
       "nome_painel": "Genera Skin",
@@ -46,6 +46,52 @@
           "recomendacoes": [
             "Monitorar ingestão de cálcio e vitamina D",
             "Praticar atividades físicas adequadas com supervisão"
+          ]
+        }
+      ]
+    },
+    {
+      "nome_painel": "Genera Nutri",
+      "descricao": "Resposta do corpo a nutrientes e vitaminas.",
+      "resultados": [
+        {
+          "caracteristica": "Sensibilidade à Cafeína",
+          "categoria_impacto": "Pontos de atenção",
+          "dados_tecnicos": {
+            "snp": "rs762551",
+            "cromossomo": "15",
+            "gene": "CYP1A2",
+            "populacao_estudo": "Mista",
+            "genotipo": "C,C"
+          },
+          "conclusao_curta": "Metabolismo lento de cafeína",
+          "explicacao_detalhada": "O seu genótipo indica uma metabolização lenta da cafeína. O consumo excessivo de café ou pré-treinos pode estar associado a um maior risco de hipertensão, ansiedade ou dificuldades no sono.",
+          "recomendacoes": [
+            "Limitar o consumo de café a 1 a 2 xícaras por dia",
+            "Evitar o consumo de cafeína após as 16h"
+          ]
+        }
+      ]
+    },
+    {
+      "nome_painel": "Genera Farma",
+      "descricao": "Resposta genética a medicamentos.",
+      "resultados": [
+        {
+          "caracteristica": "Sensibilidade ao Omeprazol",
+          "categoria_impacto": "Intervenção médica recomendada",
+          "dados_tecnicos": {
+            "snp": "rs1065852",
+            "cromossomo": "10",
+            "gene": "CYP2C19",
+            "populacao_estudo": "Mista",
+            "genotipo": "A,A"
+          },
+          "conclusao_curta": "Metabolizador ultrarrápido",
+          "explicacao_detalhada": "A sua genética sugere que você metaboliza o omeprazol de forma ultrarrápida, o que pode reduzir significativamente a eficácia da dosagem padrão do medicamento no tratamento de condições gástricas.",
+          "recomendacoes": [
+            "Discutir possível ajuste de dosagem com o médico assistente",
+            "Avaliar terapias alternativas para proteção gástrica"
           ]
         }
       ]
